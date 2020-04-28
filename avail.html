@@ -1,0 +1,50 @@
+
+
+<div>
+    <h1> Availability </h1>
+
+    <h3 id="date"></h3>
+
+    <div>
+        <li><b id="begin"> </b> to <b id="end"> </b>  </li>
+    </div>
+
+    
+    <h3 id="date2"></h3>
+
+    <div>
+        <li><b id="begin2"> </b> to <b id="end2"> </b>  </li>
+    </div>
+
+    
+</div>
+
+
+<script>
+
+    function hate(){
+
+        const data = { "query": { "match_all": {} }}
+
+        var a = fetch("http://104.43.131.18:9200/availability/_search").then(
+		function(response) {
+			return response.json()
+		}
+	).then(function(data){
+        console.log(data)
+
+        document.getElementById("date").innerHTML = data.hits.hits[0]._source.date
+        
+		document.getElementById("begin").innerHTML = data.hits.hits[0]._source.end
+        document.getElementById("end").innerHTML = data.hits.hits[0]._source.begin
+        
+
+        document.getElementById("date2").innerHTML = data.hits.hits[1]._source.date
+        
+		document.getElementById("begin2").innerHTML = data.hits.hits[1]._source.end
+		document.getElementById("end2").innerHTML = data.hits.hits[1]._source.begin
+    }); 
+    }
+
+    hate()
+</script>
